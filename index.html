@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEXFORM — Science-Backed Looksmaxxing Research & Community</title>
+  <meta name="description" content="Evidence-based looksmaxxing: Wolff's Law, neck training protocols, supplement stacks, and a daily routine tracker. No pseudoscience.">
+  <meta name="theme-color" content="#08080d">
+  <meta property="og:title" content="APEXFORM — Reach Your Apex Form">
+  <meta property="og:description" content="Research-driven looksmaxxing. Real protocols, community, progress tracking.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav>
+    <button type="button" class="nav-logo" onclick="showPage('home')" aria-label="APEXFORM home">APEX<span>FORM</span></button>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><button type="button" data-nav="home" onclick="showPage('home')" class="active">Home</button></li>
+      <li><button type="button" data-nav="research" onclick="showPage('research')">Research</button></li>
+      <li><button type="button" data-nav="tracker" onclick="showPage('tracker')">Routine</button></li>
+      <li><button type="button" data-nav="forum" onclick="showPage('forum')">Forum</button></li>
+      <li><button type="button" class="nav-cta" data-open-modal="modal-join">Join</button></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-tag fade-up fade-up-1">Science-backed · Community-driven</div>
+        <h1 class="hero-title fade-up fade-up-2">
+          REACH YOUR
+          <span class="line2">APEX FORM</span>
+        </h1>
+        <p class="hero-sub fade-up fade-up-3">Research-driven looksmaxxing. No pseudoscience, no shortcuts — real protocols, a real community, and progress you can track every day.</p>
+        <div class="hero-btns fade-up fade-up-4">
+          <button type="button" class="btn-primary" onclick="showPage('research')">Explore Research</button>
+          <button type="button" class="btn-secondary" onclick="showPage('tracker')">Start Tracking</button>
+        </div>
+        <div class="hero-stats fade-up fade-up-4">
+          <div class="hero-stat">
+            <span class="hero-stat-val">5</span>
+            <span class="hero-stat-label">Research articles</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-val">4</span>
+            <span class="hero-stat-label">Proven protocols</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-val">12<span>+</span></span>
+            <span class="hero-stat-label">Weeks to visible SCM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section style="padding-top:0">
+      <div class="section-max">
+        <div class="section-header">
+          <span class="section-tag">What's inside</span>
+          <h2>EVERYTHING<br>YOU NEED</h2>
+          <p>From bone remodeling science to your daily routine tracker — one place, zero broscience.</p>
+        </div>
+        <div class="features-grid">
+          <button type="button" class="feature-card" onclick="showPage('research')">
+            <div class="feature-icon" style="background:rgba(45,212,191,0.1)">🔬</div>
+            <h3>Research Library</h3>
+            <p>Wolff's Law, neck training mechanics, supplementation. Peer-reviewed sources, no hype.</p>
+            <span class="feature-link">Read research</span>
+          </button>
+          <button type="button" class="feature-card" onclick="showPage('tracker')">
+            <div class="feature-icon" style="background:rgba(129,140,248,0.1)">📋</div>
+            <h3>Routine Tracker</h3>
+            <p>Log neck work and supplements. Streaks and completion saved on your device.</p>
+            <span class="feature-link">Open tracker</span>
+          </button>
+          <button type="button" class="feature-card" onclick="showPage('forum')">
+            <div class="feature-icon" style="background:rgba(251,191,36,0.1)">💬</div>
+            <h3>Community Forum</h3>
+            <p>Share progress and discuss protocols. Evidence-based discussion only.</p>
+            <span class="feature-link">Join discussion</span>
+          </button>
+          <button type="button" class="feature-card" onclick="openResearch('bonesmash')">
+            <div class="feature-icon" style="background:rgba(248,113,113,0.1)">⚠️</div>
+            <h3>Myth Busting</h3>
+            <p>Bone smashing, face pulling, surgery alternatives — what works vs forum hype.</p>
+            <span class="feature-link">Read debunks</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-max">
+        <div class="section-header">
+          <span class="section-tag">Community</span>
+          <h2>LATEST<br>POSTS</h2>
+        </div>
+        <div class="community-row">
+          <div class="post-card" data-goto="forum">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:rgba(45,212,191,0.15);color:var(--teal)">YO</div>
+              <span class="post-author">you</span>
+              <span class="post-time">Today</span>
+            </div>
+            <div class="post-title">8 weeks of neck training — SCM results</div>
+            <div class="post-preview">Started the 4-exercise routine. Neck flexion soreness confirmed it's working...</div>
+            <div class="post-tags"><span class="tag-pill">neck training</span><span class="tag-pill">progress</span></div>
+          </div>
+          <div class="post-card" data-goto="forum">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:rgba(129,140,248,0.15);color:var(--blue)">MX</div>
+              <span class="post-author">maxcel</span>
+              <span class="post-time">2h ago</span>
+            </div>
+            <div class="post-title">D3+K2 protocol — how much K2 actually matters?</div>
+            <div class="post-preview">Switched to K2 combo and noticed less bloating around the jaw area...</div>
+            <div class="post-tags"><span class="tag-pill">supplementation</span><span class="tag-pill">D3/K2</span></div>
+          </div>
+          <div class="post-card" data-goto="forum" onclick="openResearch('wolff')">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:rgba(251,191,36,0.15);color:var(--amber)">JW</div>
+              <span class="post-author">jawmaxxer</span>
+              <span class="post-time">5h ago</span>
+            </div>
+            <div class="post-title">Wolff's Law — where the forums get it wrong</div>
+            <div class="post-preview">Most bone smashing advocates cite Wolff correctly but apply it wrong...</div>
+            <div class="post-tags"><span class="tag-pill">science</span><span class="tag-pill">bone remodeling</span></div>
+          </div>
+          <div class="post-card" data-goto="forum">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:rgba(248,113,113,0.15);color:var(--coral)">LB</div>
+              <span class="post-author">leanbase</span>
+              <span class="post-time">1d ago</span>
+            </div>
+            <div class="post-title">6'1" / 150lbs — lean bulk or maintain?</div>
+            <div class="post-preview">Facial fat distribution is mostly genetic. A lean bulk might actually help...</div>
+            <div class="post-tags"><span class="tag-pill">body composition</span><span class="tag-pill">bulking</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="f-logo">APEX<span>FORM</span></div>
+          <p>Science-backed looksmaxxing · Est. 2026</p>
+        </div>
+        <div class="footer-links">
+          <a href="#" onclick="showPage('research');return false">Research</a>
+          <a href="#" onclick="showPage('tracker');return false">Routine Tracker</a>
+          <a href="#" onclick="showPage('forum');return false">Forum</a>
+        </div>
+        <p class="footer-disclaimer">Educational content only — not medical advice. Avoid high-risk practices without clinical evidence. Consult a physician before starting any training or supplement protocol.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="page" id="page-research">
+    <div class="research-hero">
+      <span class="section-tag">Research Library</span>
+      <h2>THE SCIENCE</h2>
+      <p>Evidence-based articles on facial structure, bone remodeling, training, and supplementation.</p>
+    </div>
+    <div class="research-grid">
+      <aside class="research-sidebar">
+        <div class="sidebar-label">Articles</div>
+        <ul class="sidebar-nav">
+          <li><button type="button" class="active" data-article="wolff" onclick="showArticle('wolff',this)"><span class="dot"></span>Wolff's Law explained</button></li>
+          <li><button type="button" data-article="bonesmash" onclick="showArticle('bonesmash',this)"><span class="dot"></span>Bone smashing — verdict</button></li>
+          <li><button type="button" data-article="neck" onclick="showArticle('neck',this)"><span class="dot"></span>Neck training science</button></li>
+          <li><button type="button" data-article="supps" onclick="showArticle('supps',this)"><span class="dot"></span>Supplement stack</button></li>
+          <li><button type="button" data-article="timeline" onclick="showArticle('timeline',this)"><span class="dot"></span>Realistic timeline</button></li>
+        </ul>
+      </aside>
+      <div class="research-content">
+
+        <article class="research-article active" id="article-wolff">
+          <span class="article-tag">Bone Biology</span>
+          <h1 class="article-title">WOLFF'S LAW</h1>
+          <div class="article-meta"><span>Julius Wolff, 1892</span><span>·</span><span>Foundational reading</span></div>
+          <div class="article-body">
+            <p>Bone in a living body adapts to the loads placed on it. Increased loading → denser bone along stress lines. Reduced loading → thinner, weaker bone.</p>
+            <div class="info-box">
+              <strong>The core mechanism</strong>
+              <p>Mechanical force pushes fluid through channels around osteocytes, stressing cell membranes and signaling osteoblasts to deposit new matrix in the load direction.</p>
+            </div>
+            <h3>The three cell types</h3>
+            <p>Osteocytes regulate where new bone is needed. Osteoblasts build matrix. Osteoclasts resorb old tissue. Their balance determines growth, maintenance, or loss.</p>
+            <h3>What "load" actually means</h3>
+            <p>Wolff's Law needs sustained, directional, low-grade stress — not acute trauma. Safe adaptive strain is roughly 650–3,000 microstrain. Below 650 → disuse atrophy. Above 10,000 → fracture risk. Braces deliver ~200–2,000 microstrain continuously over months.</p>
+            <div class="info-box amber">
+              <strong>Zhang's Law extension</strong>
+              <p>Applied forces can change bone shape, diameter, and alignment — even post-maturity. The mechanism is real; bone smashing misapplies it by using trauma instead of chronic loading.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="research-article" id="article-bonesmash">
+          <span class="article-tag">Myth Busting</span>
+          <h1 class="article-title">BONE SMASHING</h1>
+          <div class="article-meta"><span>Verdict: Does not work as claimed</span><span>·</span><span>High risk</span></div>
+          <div class="article-body">
+            <p>Striking facial bones to "trigger Wolff's Law" cites real science but applies it backwards.</p>
+            <div class="info-box warn">
+              <strong>The critical flaw</strong>
+              <p>Wolff needs sustained low-grade directional stress. Blunt impact causes acute inflammation, osteoclast overdrive, and scar tissue — the opposite of adaptive remodeling.</p>
+            </div>
+            <h3>Forum context</h3>
+            <p>Advocates cite Zhang's Law and force calculations, but most "results" mix steroids, weight loss, or puberty — making attribution impossible.</p>
+            <div class="verdict-row">
+              <div class="verdict-card">
+                <div class="vc-label t">Claimed benefits</div>
+                <p>Mechanical stimulus, cortical thickening — real in principle at safe loads.</p>
+              </div>
+              <div class="verdict-card">
+                <div class="vc-label c">Actual risks</div>
+                <p>Stress fractures, TMJ damage, nerve injury, permanent asymmetry.</p>
+              </div>
+            </div>
+            <h3>Platform response</h3>
+            <p>Major platforms have restricted bone-smashing tutorials after viral spread. No peer-reviewed studies support cosmetic results from self-inflicted facial trauma.</p>
+          </div>
+        </article>
+
+        <article class="research-article" id="article-neck">
+          <span class="article-tag">Training Science</span>
+          <h1 class="article-title">NECK TRAINING</h1>
+          <div class="article-meta"><span>Evidence level: Strong</span><span>·</span><span>Recommended</span></div>
+          <div class="article-body">
+            <p>Neck musculature shapes jawline perception. The SCM creates the lateral neck line; posterior mass adds contrast. Unlike bone smashing, muscle responds predictably to training.</p>
+            <h3>The four-exercise protocol</h3>
+            <p>Use full ROM — head off the edge of a bench or bed, same principle as athletic neck training.</p>
+            <div class="info-box"><strong>1 — Neck Flexion (3×12–20)</strong><p>Supine, tuck chin, lift through full ROM. Under-chin soreness means the target muscle is working.</p></div>
+            <div class="info-box"><strong>2 — Neck Extension (3×12–15)</strong><p>Prone, lift head, pause at top. Builds posterior thickness for jaw contrast.</p></div>
+            <div class="info-box"><strong>3 — Side Flexion / SCM (3×12–15/side)</strong><p>Upright, ear to shoulder with light hand resistance. Highest visual ROI in the routine.</p></div>
+            <div class="info-box amber"><strong>4 — Chin Tucks (3×10 daily)</strong><p>Posture fix, not hypertrophy. Hold 3–5 sec. Forward head posture compresses the jaw angle visually.</p></div>
+            <p>Visible changes often appear at 8–12 weeks of consistency.</p>
+            <p><button type="button" class="btn-primary" onclick="showPage('tracker')">Open routine tracker →</button></p>
+          </div>
+        </article>
+
+        <article class="research-article" id="article-supps">
+          <span class="article-tag">Supplementation</span>
+          <h1 class="article-title">SUPPLEMENT STACK</h1>
+          <div class="article-meta"><span>Evidence-based selections only</span></div>
+          <div class="article-body">
+            <div class="info-box"><strong>D3 + K2 (MK-7)</strong><p>K2 directs calcium into bone via osteocalcin and matrix GLA protein — meaningfully better than D3 alone for bone deposition.</p></div>
+            <div class="info-box"><strong>Creatine (3–5g daily)</strong><p>Strong evidence for strength and mass. Facial puffiness concerns are overstated at low body fat; intracellular water ≠ subcutaneous bloat.</p></div>
+            <div class="info-box amber"><strong>High K / Low Na diet</strong><p>Better natriuresis and less facial water retention than diuretics. Prioritize potassium-rich whole foods, limit processed sodium.</p></div>
+            <h3>Skip these</h3>
+            <p>Collagen (weak evidence if protein is adequate), biotin (no structural evidence), and most branded "looksmax" stacks are marketing.</p>
+          </div>
+        </article>
+
+        <article class="research-article" id="article-timeline">
+          <span class="article-tag">Realistic Expectations</span>
+          <h1 class="article-title">TIMELINE</h1>
+          <div class="article-meta"><span>Honest projections</span></div>
+          <div class="article-body">
+            <p>Structural change takes months, not weeks. Here's what biology supports.</p>
+            <div class="r-timeline">
+              <div class="r-titem"><div class="r-t-time">Weeks 1–4</div><strong>Posture & retention</strong><span>Chin tucks habit. Lower sodium → less puffiness in days. Jaw reads differently with posture alone.</span></div>
+              <div class="r-titem"><div class="r-t-time">Weeks 4–8</div><strong>Adaptation</strong><span>Flexion soreness fades. SCM separation begins. Posterior neck adds contrast.</span></div>
+              <div class="r-titem"><div class="r-t-time">Weeks 8–16</div><strong>Visible neck development</strong><span>SCM line visible front-on. Side profile improves — peak ROI window for the routine.</span></div>
+              <div class="r-titem"><div class="r-t-time">Months 6–18</div><strong>Structural compounding</strong><span>Male facial structure still develops into mid-20s. Training stacks on a developing base.</span></div>
+              <div class="r-titem"><div class="r-t-time">Ongoing</div><strong>Maintenance</strong><span>Body comp, neck work, modest lean bulk if underweight to fill neck/temporal regions.</span></div>
+            </div>
+            <div class="info-box"><strong>Key note on age</strong><p>Consistency compounds on a still-developing facial base through your mid-20s.</p></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="page" id="page-tracker">
+    <div class="tracker-wrap">
+      <div class="tracker-header">
+        <div>
+          <span class="section-tag">Daily Routine</span>
+          <h2>ROUTINE TRACKER</h2>
+        </div>
+        <div class="streak-badge" aria-live="polite">
+          <span class="streak-num" id="streak-count">0</span>
+          <span class="streak-label">day streak</span>
+        </div>
+      </div>
+
+      <div class="sidebar-label">This week</div>
+      <div class="week-grid" id="week-grid" role="list" aria-label="Week completion"></div>
+
+      <div class="sidebar-label" style="margin-bottom:16px">Today's exercises</div>
+      <div class="exercise-list">
+        <div class="ex-card" id="ex-1" onclick="toggleEx(1)" role="button" tabindex="0">
+          <div class="ex-check" id="excheck-1" aria-hidden="true"></div>
+          <div class="ex-info"><div class="ex-name">Neck Flexion</div><div class="ex-detail">3×12–20 · Hang off bed edge</div></div>
+          <div class="ex-sets" id="sets-1">
+            <div class="set-dot" onclick="toggleSet(event,1,1)">1</div>
+            <div class="set-dot" onclick="toggleSet(event,1,2)">2</div>
+            <div class="set-dot" onclick="toggleSet(event,1,3)">3</div>
+          </div>
+        </div>
+        <div class="ex-card" id="ex-2" onclick="toggleEx(2)" role="button" tabindex="0">
+          <div class="ex-check" id="excheck-2"></div>
+          <div class="ex-info"><div class="ex-name">Neck Extension</div><div class="ex-detail">3×12–15 · Full ROM</div></div>
+          <div class="ex-sets" id="sets-2">
+            <div class="set-dot" onclick="toggleSet(event,2,1)">1</div>
+            <div class="set-dot" onclick="toggleSet(event,2,2)">2</div>
+            <div class="set-dot" onclick="toggleSet(event,2,3)">3</div>
+          </div>
+        </div>
+        <div class="ex-card" id="ex-3" onclick="toggleEx(3)" role="button" tabindex="0">
+          <div class="ex-check" id="excheck-3"></div>
+          <div class="ex-info"><div class="ex-name">Side Flexion / SCM</div><div class="ex-detail">3×12–15 each side</div></div>
+          <div class="ex-sets" id="sets-3">
+            <div class="set-dot" onclick="toggleSet(event,3,1)">1</div>
+            <div class="set-dot" onclick="toggleSet(event,3,2)">2</div>
+            <div class="set-dot" onclick="toggleSet(event,3,3)">3</div>
+          </div>
+        </div>
+        <div class="ex-card" id="ex-4" onclick="toggleEx(4)" role="button" tabindex="0">
+          <div class="ex-check" id="excheck-4"></div>
+          <div class="ex-info"><div class="ex-name">Chin Tucks</div><div class="ex-detail">3×10 · Every day</div></div>
+          <div class="ex-sets" id="sets-4">
+            <div class="set-dot" onclick="toggleSet(event,4,1)">1</div>
+            <div class="set-dot" onclick="toggleSet(event,4,2)">2</div>
+            <div class="set-dot" onclick="toggleSet(event,4,3)">3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-label" style="margin-bottom:16px">Progress</div>
+      <div class="progress-row">
+        <div class="progress-card">
+          <h4>Routine Completion</h4>
+          <div class="pc-sub">Today</div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="completion-bar" style="width:0%;background:var(--teal)"></div></div>
+          <div class="progress-pct" id="completion-pct">0%</div>
+        </div>
+        <div class="progress-card">
+          <h4>SCM Development</h4>
+          <div class="pc-sub">Typical visibility week 8–12</div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="scm-bar" style="width:8%;background:var(--blue)"></div></div>
+          <div class="progress-pct" id="scm-pct">Week 1 of 12</div>
+        </div>
+      </div>
+
+      <div class="sidebar-label" style="margin-bottom:16px">Today's supplements</div>
+      <div class="supps-row">
+        <div class="supp-toggle" id="supp-d3" onclick="toggleSupp('d3')" role="button" tabindex="0">
+          <div class="supp-toggle-dot"></div>
+          <div><div class="supp-name-t">D3 + K2</div><div class="supp-sub">Bone health · Daily</div></div>
+        </div>
+        <div class="supp-toggle" id="supp-cr" onclick="toggleSupp('cr')" role="button" tabindex="0">
+          <div class="supp-toggle-dot"></div>
+          <div><div class="supp-name-t">Creatine</div><div class="supp-sub">3–5g · Daily</div></div>
+        </div>
+        <div class="supp-toggle" id="supp-hy" onclick="toggleSupp('hy')" role="button" tabindex="0">
+          <div class="supp-toggle-dot"></div>
+          <div><div class="supp-name-t">Hydration</div><div class="supp-sub">2L+ · Less retention</div></div>
+        </div>
+      </div>
+      <button type="button" class="reset-day" onclick="resetToday()">Reset today</button>
+    </div>
+  </div>
+
+  <!-- FORUM -->
+  <div class="page" id="page-forum">
+    <div class="forum-wrap">
+      <div class="forum-top">
+        <div><span class="section-tag">Community</span><h2>FORUM</h2></div>
+        <button type="button" class="btn-primary" data-open-modal="modal-join">+ New Post</button>
+      </div>
+      <div class="forum-cats">
+        <button type="button" class="cat-btn active" data-cat="all">All</button>
+        <button type="button" class="cat-btn" data-cat="science">Science</button>
+        <button type="button" class="cat-btn" data-cat="progress">Progress</button>
+        <button type="button" class="cat-btn" data-cat="routine">Routine</button>
+        <button type="button" class="cat-btn" data-cat="supplementation">Supplementation</button>
+        <button type="button" class="cat-btn" data-cat="myth">Myth Busting</button>
+      </div>
+      <button type="button" class="new-post-btn" data-open-modal="modal-join">Share your progress or ask a question...</button>
+
+      <div class="forum-thread" data-cat="science" data-pinned="1">
+        <div>
+          <div class="ft-top">
+            <span class="ft-cat-tag" style="background:rgba(45,212,191,0.1);color:var(--teal)">Pinned</span>
+            <span class="ft-cat-tag" style="background:rgba(45,212,191,0.08);color:var(--teal)">Science</span>
+          </div>
+          <div class="ft-title">Welcome — evidence standards for this forum</div>
+          <div class="ft-preview">Back claims with reasoning or sources. No promotion of high-risk practices without clinical evidence...</div>
+        </div>
+        <div class="ft-meta"><strong class="ft-pin">📌</strong><div class="ft-replies">pinned</div></div>
+      </div>
+
+      <div class="forum-thread" data-cat="progress" onclick="showPage('tracker')">
+        <div>
+          <div class="ft-top"><span class="ft-cat-tag" style="background:rgba(129,140,248,0.08);color:var(--blue)">Progress</span></div>
+          <div class="ft-title">8 weeks of SCM training — before/after neck photos</div>
+          <div class="ft-preview">Side flexion 3×15 with hand resistance. Lateral neck line results...</div>
+        </div>
+        <div class="ft-meta"><strong>24</strong><div class="ft-replies">replies</div></div>
+      </div>
+
+      <div class="forum-thread" data-cat="myth" onclick="openResearch('bonesmash')">
+        <div>
+          <div class="ft-top"><span class="ft-cat-tag" style="background:rgba(248,113,113,0.08);color:var(--coral)">Myth Busting</span></div>
+          <div class="ft-title">Bone smashing threads — full breakdown</div>
+          <div class="ft-preview">Why UFC shin conditioning analogies fail at the physics level...</div>
+        </div>
+        <div class="ft-meta"><strong>41</strong><div class="ft-replies">replies</div></div>
+      </div>
+
+      <div class="forum-thread" data-cat="supplementation">
+        <div>
+          <div class="ft-top"><span class="ft-cat-tag" style="background:rgba(251,191,36,0.08);color:var(--amber)">Supplementation</span></div>
+          <div class="ft-title">D3 vs D3+K2 — does K2 matter for facial bone?</div>
+          <div class="ft-preview">MK-7 activates matrix GLA protein — directs calcium to bone...</div>
+        </div>
+        <div class="ft-meta"><strong>17</strong><div class="ft-replies">replies</div></div>
+      </div>
+
+      <div class="forum-thread" data-cat="routine">
+        <div>
+          <div class="ft-top"><span class="ft-cat-tag" style="background:rgba(74,222,128,0.08);color:var(--green)">Routine</span></div>
+          <div class="ft-title">6'1" 150lbs — lean bulk vs maintain for face aesthetics?</div>
+          <div class="ft-preview">Modest lean bulk of 10–15lbs might fill neck and temporal regions...</div>
+        </div>
+        <div class="ft-meta"><strong>33</strong><div class="ft-replies">replies</div></div>
+      </div>
+
+      <div class="forum-thread" data-cat="science" onclick="openResearch('wolff')">
+        <div>
+          <div class="ft-top"><span class="ft-cat-tag" style="background:rgba(45,212,191,0.08);color:var(--teal)">Science</span></div>
+          <div class="ft-title">Wolff's Law vs Zhang's Law — what forums get right and wrong</div>
+          <div class="ft-preview">Valid mechanism, wrong application — trauma ≠ chronic loading...</div>
+        </div>
+        <div class="ft-meta"><strong>58</strong><div class="ft-replies">replies</div></div>
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  <!-- JOIN MODAL -->
+  <div class="modal-overlay" id="modal-join" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal-wrap">
+      <div class="modal">
+        <button type="button" class="modal-close" data-close-modal="modal-join" aria-label="Close">×</button>
+        <h3 id="modal-title">JOIN APEXFORM</h3>
+        <p>Early access to the full forum, progress threads, and protocol updates. No spam.</p>
+        <form id="join-form">
+          <input type="email" id="join-email" name="email" placeholder="you@email.com" required autocomplete="email">
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Join waitlist</button>
+            <button type="button" class="btn-secondary" data-close-modal="modal-join">Later</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
