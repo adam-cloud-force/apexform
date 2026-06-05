@@ -4,7 +4,8 @@ $repo = "apexform"
 
 gh auth status | Out-Null
 
-if (-not (git remote get-url origin 2>$null)) {
+$hasRemote = git remote 2>$null | Select-String -Pattern '^origin$' -Quiet
+if (-not $hasRemote) {
   gh repo create $repo --public --source=. --remote=origin --description "Science-backed looksmaxxing research & routine tracker"
 } else {
   Write-Host "Remote already set: $(git remote get-url origin)"
