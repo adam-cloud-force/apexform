@@ -1,6 +1,6 @@
-# APEXFORM
+# ASCEND
 
-Science-backed looksmaxxing research site with a daily routine tracker, research library, and community forum UI.
+Anonymous looksmax board — /asc/ discussion, /wiki/ guides, /log/ routine tracker. 4chan-inspired UI, wing brand.
 
 ## Local preview
 
@@ -23,7 +23,7 @@ Open http://localhost:3000
    .\publish.ps1
    ```
 
-Live URL: `https://<your-username>.github.io/apexform/`
+Live URL: `https://adam-cloud-force.github.io/apexform/`
 
 The GitHub Actions workflow in `.github/workflows/pages.yml` deploys automatically on every push to `main`.
 

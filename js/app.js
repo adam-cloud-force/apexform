@@ -1,17 +1,26 @@
-const STORAGE_KEY = 'apexform_v1';
+const STORAGE_KEY = 'ascend_v1';
+const LEGACY_KEY = 'apexform_v1';
 
 const defaultState = () => ({
   exercises: { 1: { sets: [], done: false }, 2: { sets: [], done: false }, 3: { sets: [], done: false }, 4: { sets: [], done: false } },
   supps: { d3: false, cr: false, hy: false },
   completedDates: [],
   streak: 0,
-  joined: false,
+  displayName: '',
+  threads: [],
   lastActiveDate: null,
 });
 
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      const legacy = localStorage.getItem(LEGACY_KEY);
+      if (legacy) {
+        localStorage.setItem(STORAGE_KEY, legacy);
+        raw = legacy;
+      }
+    }
     if (!raw) return defaultState();
     return { ...defaultState(), ...JSON.parse(raw) };
   } catch {
@@ -19,87 +28,153 @@ function loadState() {
   }
 }
 
-function saveState(state) {
+function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 let state = loadState();
 const todayKey = () => new Date().toISOString().slice(0, 10);
 
-function dateOffset(days) {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  return d;
+function parseName(input) {
+  const raw = (input || '').trim();
+  if (!raw || raw.toLowerCase() === 'anonymous') {
+    return { name: 'Anonymous', trip: '' };
+  }
+  const tripMatch = raw.match(/^(.+?)(!!.+)$/);
+  if (tripMatch) {
+    return { name: tripMatch[1].trim() || 'Anonymous', trip: tripMatch[2] };
+  }
+  return { name: raw, trip: '' };
 }
 
-// ── PAGE NAV ──
+function formatDisplayName() {
+  const { name, trip } = parseName(state.displayName);
+  return trip ? `${name}${trip}` : name;
+}
+
+function updateNameUI() {
+  const el = document.getElementById('display-name');
+  if (!el) return;
+  const { name, trip } = parseName(state.displayName);
+  if (trip) {
+    el.innerHTML = `${escapeHtml(name)}<span class="post-trip">${escapeHtml(trip)}</span>`;
+  } else {
+    el.textContent = name;
+  }
+  const input = document.getElementById('input-name');
+  if (input) input.value = state.displayName || '';
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function formatBody(text) {
+  return text
+    .split('\n')
+    .map((line) => {
+      const t = escapeHtml(line);
+      if (line.trimStart().startsWith('>')) {
+        return `<span class="greentext">${t}</span>`;
+      }
+      if (line.trim()) return `<p>${t}</p>`;
+      return '';
+    })
+    .join('');
+}
+
+function randomPostNo() {
+  return Math.floor(10000 + Math.random() * 89999);
+}
+
+function renderUserThreads() {
+  const container = document.getElementById('user-threads');
+  if (!container) return;
+  container.innerHTML = '';
+  state.threads.slice().reverse().forEach((t) => {
+    const div = document.createElement('div');
+    div.className = 'post forum-thread';
+    div.dataset.cat = t.cat || 'progress';
+    const { name, trip } = parseName(t.author);
+    div.innerHTML = `
+      <div class="post-head">
+        <span class="post-name">${escapeHtml(name)}</span>
+        ${trip ? `<span class="post-trip">${escapeHtml(trip)}</span>` : ''}
+        <span class="post-no"><a href="#">&gt;&gt;${t.no}</a></span>
+        <span>just now</span>
+      </div>
+      <div class="post-subject">${escapeHtml(t.subject)}</div>
+      <div class="post-body">${formatBody(t.body)}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ── NAV ──
 function showPage(name, closeNav = true) {
   document.querySelectorAll('.page').forEach((p) => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links [data-nav]').forEach((b) => {
+  document.querySelectorAll('.board-nav [data-nav]').forEach((b) => {
     b.classList.remove('active');
     b.removeAttribute('aria-current');
   });
-  const page = document.getElementById('page-' + name);
-  if (page) page.classList.add('active');
+  document.getElementById('page-' + name)?.classList.add('active');
   const navBtn = document.querySelector(`[data-nav="${name}"]`);
   if (navBtn) {
     navBtn.classList.add('active');
     navBtn.setAttribute('aria-current', 'page');
   }
   window.scrollTo(0, 0);
-  if (closeNav) document.querySelector('nav')?.classList.remove('open');
+  if (closeNav) document.getElementById('site-bar')?.classList.remove('open');
   history.replaceState(null, '', '#' + name);
 }
 
 function showArticle(id, btn) {
-  document.querySelectorAll('.research-article').forEach((a) => a.classList.remove('active'));
-  document.querySelectorAll('.sidebar-nav li button').forEach((b) => b.classList.remove('active'));
-  const article = document.getElementById('article-' + id);
-  if (article) article.classList.add('active');
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.wiki-article').forEach((a) => a.classList.remove('active'));
+  document.querySelectorAll('.wiki-side button').forEach((b) => b.classList.remove('active'));
+  document.getElementById('article-' + id)?.classList.add('active');
+  btn?.classList.add('active');
 }
 
-function openResearch(articleId) {
+function openWiki(id) {
   showPage('research');
-  const btn = document.querySelector(`.sidebar-nav button[data-article="${articleId}"]`);
-  if (btn) showArticle(articleId, btn);
+  const btn = document.querySelector(`.wiki-side button[data-article="${id}"]`);
+  if (btn) showArticle(id, btn);
 }
 
-// ── NAV MOBILE ──
-document.getElementById('nav-toggle')?.addEventListener('click', () => {
-  document.querySelector('nav')?.classList.toggle('open');
-});
-
-// ── HASH ROUTING ──
 const validPages = ['home', 'research', 'tracker', 'forum'];
 function initRoute() {
   const hash = (location.hash || '#home').slice(1).split('/')[0];
   if (validPages.includes(hash)) showPage(hash, false);
-  const article = (location.hash || '').match(/research\/(\w+)/)?.[1];
-  if (article) openResearch(article);
+  const article = (location.hash || '').match(/wiki\/(\w+)/)?.[1];
+  if (article) openWiki(article);
 }
+
 window.addEventListener('hashchange', initRoute);
 
-// ── WEEK GRID ──
+document.getElementById('nav-toggle')?.addEventListener('click', () => {
+  document.getElementById('site-bar')?.classList.toggle('open');
+});
+
+// ── WEEK ──
 function renderWeekGrid() {
   const grid = document.getElementById('week-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const now = new Date();
   const todayIdx = now.getDay();
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - todayIdx);
+  const start = new Date(now);
+  start.setDate(now.getDate() - todayIdx);
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date(startOfWeek);
-    d.setDate(startOfWeek.getDate() + i);
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
     const key = d.toISOString().slice(0, 10);
-    const isToday = key === todayKey();
-    const done = state.completedDates.includes(key);
     const el = document.createElement('div');
-    el.className = 'week-day' + (done ? ' done' : '') + (isToday ? ' today' : '');
-    el.innerHTML = `<div class="wd-name">${days[i]}</div><div class="wd-num">${d.getDate()}</div><div class="wd-check">${done ? '✓' : isToday ? '●' : ''}</div>`;
+    el.className = 'log-cell' + (state.completedDates.includes(key) ? ' done' : '') + (key === todayKey() ? ' today' : '');
+    el.innerHTML = `${days[i]}<br><b>${d.getDate()}</b>`;
     grid.appendChild(el);
   }
 }
@@ -108,13 +183,13 @@ function renderWeekGrid() {
 function applyExerciseUI() {
   for (let id = 1; id <= 4; id++) {
     const ex = state.exercises[id];
-    const card = document.getElementById('ex-' + id);
+    const row = document.getElementById('ex-' + id);
     const check = document.getElementById('excheck-' + id);
-    if (!card) continue;
-    card.classList.toggle('completed', ex.done);
+    if (!row) continue;
+    row.classList.toggle('done', ex.done);
     check.textContent = ex.done ? '✓' : '';
     document.querySelectorAll(`#sets-${id} .set-dot`).forEach((dot, idx) => {
-      dot.classList.toggle('done', ex.sets.includes(idx + 1));
+      dot.classList.toggle('on', ex.sets.includes(idx + 1));
     });
   }
   updateProgress();
@@ -130,7 +205,7 @@ function toggleSet(e, exId, setNum) {
   else unmarkExDone(exId);
   applyExerciseUI();
   persistIfComplete();
-  saveState(state);
+  saveState();
 }
 
 function toggleEx(exId) {
@@ -144,7 +219,7 @@ function toggleEx(exId) {
   }
   applyExerciseUI();
   persistIfComplete();
-  saveState(state);
+  saveState();
 }
 
 function markExDone(exId) {
@@ -175,9 +250,7 @@ function computeStreak() {
   let streak = 0;
   let cursor = new Date();
   cursor.setHours(0, 0, 0, 0);
-  const today = todayKey();
-  const hasToday = dates.includes(today);
-  if (!hasToday) cursor.setDate(cursor.getDate() - 1);
+  if (!dates.includes(todayKey())) cursor.setDate(cursor.getDate() - 1);
   for (let i = 0; i < 365; i++) {
     const key = cursor.toISOString().slice(0, 10);
     if (dates.includes(key)) {
@@ -193,16 +266,16 @@ function persistIfComplete() {
   if (allExercisesDone()) {
     if (!state.completedDates.includes(key)) {
       state.completedDates.push(key);
-      state.streak = computeStreak();
-      showToast('Routine complete — streak updated');
+      showToast('>>routine complete');
       renderWeekGrid();
     }
   } else {
     state.completedDates = state.completedDates.filter((d) => d !== key);
-    state.streak = computeStreak();
     renderWeekGrid();
   }
-  document.getElementById('streak-count').textContent = state.streak || (allExercisesDone() ? 1 : 0);
+  state.streak = computeStreak();
+  const sc = document.getElementById('streak-count');
+  if (sc) sc.textContent = state.streak;
 }
 
 function resetToday() {
@@ -213,21 +286,24 @@ function resetToday() {
   applyExerciseUI();
   applySuppsUI();
   renderWeekGrid();
-  saveState(state);
-  showToast('Today reset');
+  saveState();
+  showToast('>>reset');
 }
 
-// ── SUPPS ──
 function applySuppsUI() {
   ['d3', 'cr', 'hy'].forEach((id) => {
-    document.getElementById('supp-' + id)?.classList.toggle('taken', state.supps[id]);
+    const el = document.getElementById('supp-' + id);
+    if (!el) return;
+    el.classList.toggle('done', state.supps[id]);
+    const dot = el.querySelector('.supp-dot');
+    if (dot) dot.textContent = state.supps[id] ? '✓' : '';
   });
 }
 
 function toggleSupp(id) {
   state.supps[id] = !state.supps[id];
   applySuppsUI();
-  saveState(state);
+  saveState();
 }
 
 // ── FORUM FILTER ──
@@ -244,7 +320,11 @@ document.querySelectorAll('.cat-btn').forEach((btn) => {
   });
 });
 
-// ── MODAL ──
+document.querySelectorAll('[data-goto]').forEach((el) => {
+  el.addEventListener('click', () => showPage(el.dataset.goto));
+});
+
+// ── MODALS ──
 function openModal(id) {
   document.getElementById(id)?.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -260,27 +340,42 @@ document.querySelectorAll('[data-open-modal]').forEach((el) => {
 document.querySelectorAll('[data-close-modal]').forEach((el) => {
   el.addEventListener('click', () => closeModal(el.dataset.closeModal));
 });
-document.querySelectorAll('.modal-overlay').forEach((overlay) => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal(overlay.id);
+document.querySelectorAll('.modal-bg').forEach((bg) => {
+  bg.addEventListener('click', (e) => {
+    if (e.target === bg) closeModal(bg.id);
   });
 });
 
-document.getElementById('join-form')?.addEventListener('submit', (e) => {
+document.getElementById('name-form')?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = document.getElementById('join-email')?.value?.trim();
-  if (!email) return;
-  const list = JSON.parse(localStorage.getItem('apexform_waitlist') || '[]');
-  if (!list.includes(email)) list.push(email);
-  localStorage.setItem('apexform_waitlist', JSON.stringify(list));
-  state.joined = true;
-  saveState(state);
-  closeModal('modal-join');
-  showToast("You're on the list — we'll be in touch");
-  e.target.reset();
+  state.displayName = document.getElementById('input-name')?.value?.trim() || '';
+  saveState();
+  updateNameUI();
+  closeModal('modal-name');
+  showToast('>>name set');
 });
 
-// ── TOAST ──
+document.getElementById('reply-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const subject = document.getElementById('input-subject')?.value?.trim();
+  const body = document.getElementById('input-comment')?.value?.trim();
+  if (!subject || !body) return;
+  state.threads.push({
+    no: randomPostNo(),
+    subject,
+    body,
+    author: state.displayName || 'Anonymous',
+    cat: 'progress',
+    at: Date.now(),
+  });
+  saveState();
+  renderUserThreads();
+  closeModal('modal-reply');
+  showPage('forum');
+  e.target.reset();
+  showToast('>>posted');
+});
+
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -288,13 +383,8 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
-
-// ── POST CARDS → forum ──
-document.querySelectorAll('.post-card[data-goto]').forEach((card) => {
-  card.addEventListener('click', () => showPage('forum'));
-});
 
 // ── INIT ──
 if (state.lastActiveDate && state.lastActiveDate !== todayKey()) {
@@ -303,25 +393,19 @@ if (state.lastActiveDate && state.lastActiveDate !== todayKey()) {
 }
 state.lastActiveDate = todayKey();
 state.streak = computeStreak();
-saveState(state);
 
 applyExerciseUI();
 applySuppsUI();
 renderWeekGrid();
+renderUserThreads();
+updateNameUI();
 document.getElementById('streak-count').textContent = state.streak;
-
-const scmWeeks = Math.min(12, Math.max(1, state.completedDates.length));
-const scmBar = document.getElementById('scm-bar');
-const scmPct = document.getElementById('scm-pct');
-if (scmBar) scmBar.style.width = Math.round((scmWeeks / 12) * 100) + '%';
-if (scmPct) scmPct.textContent = `Week ${scmWeeks} of 12`;
-
+saveState();
 initRoute();
 
-// Expose for inline handlers
 window.showPage = showPage;
 window.showArticle = showArticle;
-window.openResearch = openResearch;
+window.openWiki = openWiki;
 window.toggleSet = toggleSet;
 window.toggleEx = toggleEx;
 window.toggleSupp = toggleSupp;
