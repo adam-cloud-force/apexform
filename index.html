@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      var base = './';
+      if (location.protocol !== 'file:') {
+        var i = location.pathname.indexOf('/apexform');
+        base = i !== -1 ? location.pathname.slice(0, i + 9) + '/' : '/';
+      }
+      var b = document.createElement('base');
+      b.href = base;
+      document.head.appendChild(b);
+    })();
+  </script>
+  <style>
+    .page { display: none !important; }
+    .page.active { display: block !important; }
+    body { background: #0c0c0c; color: #d6d6d6; font-family: Arial, Helvetica, sans-serif; margin: 0; }
+  </style>
   <title>ASCEND — /asc/ looksmax board</title>
   <meta name="description" content="ASCEND — anonymous looksmax board. /wiki/ guides, /log/ routine tracker, /asc/ discussion.">
   <meta name="theme-color" content="#0c0c0c">
