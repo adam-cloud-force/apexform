@@ -11,7 +11,23 @@ npx --yes serve .
 
 Open http://localhost:3000
 
-## Deploy (pick one)
+## GitHub Pages (recommended)
+
+1. Authenticate once:
+   ```powershell
+   gh auth login -h github.com -p https -w
+   ```
+2. Publish:
+   ```powershell
+   cd apexform
+   .\publish.ps1
+   ```
+
+Live URL: `https://<your-username>.github.io/apexform/`
+
+The GitHub Actions workflow in `.github/workflows/pages.yml` deploys automatically on every push to `main`.
+
+## Other deploy options
 
 ### Netlify (drag & drop)
 
