@@ -18,22 +18,32 @@
   <style>
     .page { display: none !important; }
     .page.active { display: block !important; }
-    body { background: #0c0c0c; color: #d6d6d6; font-family: Arial, Helvetica, sans-serif; margin: 0; }
+    body { background: #07090f; color: #e8eaef; font-family: system-ui, sans-serif; margin: 0; }
   </style>
-  <title>ASCEND — /asc/ looksmax board</title>
+  <title>ASCEND — looksmax board</title>
   <meta name="description" content="ASCEND — anonymous looksmax board. /wiki/ guides, /log/ routine tracker, /asc/ discussion.">
-  <meta name="theme-color" content="#0c0c0c">
+  <meta name="theme-color" content="#07090f">
   <meta property="og:title" content="ASCEND">
-  <meta property="og:description" content="looksmax board — climb or cope">
+  <meta property="og:description" content="climb or cope">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <a class="skip-link" href="#main">skip</a>
 
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>ascend is in open beta — post on /asc/ · track on /log/ · read /wiki/ first · no bone smashing cope ·</span>
+      <span>ascend is in open beta — post on /asc/ · track on /log/ · read /wiki/ first · no bone smashing cope ·</span>
+    </div>
+  </div>
+
   <header class="site-bar" id="site-bar">
     <button type="button" class="brand" onclick="showPage('home')" aria-label="ASCEND home">
-      <img src="assets/wing.svg" alt="" class="wing" width="22" height="14">
+      <img src="assets/wing.svg" alt="" class="wing" width="28" height="17">
       <strong>ASCEND</strong>
     </button>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-label="menu"><span></span><span></span><span></span></button>
@@ -54,36 +64,48 @@
 
   <!-- INDEX -->
   <div class="page active" id="page-home">
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-wing" aria-hidden="true"><img src="assets/wing.svg" alt=""></div>
+      <p class="hero-eyebrow">master your structure with</p>
+      <h1 class="hero-title" aria-label="Ascend">
+        <span>A</span><span>s</span><span>c</span><span>e</span><span>n</span><span>d</span><span class="dot">.</span>
+      </h1>
+      <p class="hero-sub">the looksmax board. protocols, progress logs, and /asc/ — no pseudoscience, no shortcuts.</p>
+      <div class="hero-cta">
+        <button type="button" class="btn btn-hero" onclick="showPage('forum')">i'm new</button>
+        <button type="button" class="btn btn-hero-outline" onclick="showPage('tracker')">i'm tracking</button>
+      </div>
+    </section>
+
     <div class="wrap">
-      <div class="board-header">
-        <h1>◆ ASCEND ◆</h1>
-        <p>looksmax board — protocols, logs, no bone-smashing cope</p>
-        <ul class="rules">
-          <li>back claims with sources or greentext tier reasoning</li>
-          <li>no surgery-baiting minors, no illegal shit</li>
-          <li>progress pics optional, facecover if you want</li>
-        </ul>
+      <div class="section-label">boards</div>
+      <div class="board-cards">
+        <button type="button" class="board-card" onclick="showPage('forum')">
+          <span class="bc-tag">live</span>
+          <h3>/asc/</h3>
+          <p>general looksmax, progress threads, science debate</p>
+          <span class="bc-link">enter board →</span>
+        </button>
+        <button type="button" class="board-card" onclick="showPage('research')">
+          <span class="bc-tag">sticky</span>
+          <h3>/wiki/</h3>
+          <p>wolff's law, neck protocol, supps, realistic timelines</p>
+          <span class="bc-link">read wiki →</span>
+        </button>
+        <button type="button" class="board-card" onclick="showPage('tracker')">
+          <span class="bc-tag">daily</span>
+          <h3>/log/</h3>
+          <p>neck routine + supps — streaks saved on your device</p>
+          <span class="bc-link">open log →</span>
+        </button>
       </div>
 
-      <table class="board-table">
-        <thead><tr><th>board</th><th>about</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><button type="button" class="linkish" onclick="showPage('forum')">/asc/</button></td>
-            <td>general looksmax, progress, rating each other into oblivion (be nice-ish)</td>
-          </tr>
-          <tr>
-            <td><button type="button" class="linkish" onclick="showPage('research')">/wiki/</button></td>
-            <td>sticky knowledge — wolff's law, neck training, supps, timelines</td>
-          </tr>
-          <tr>
-            <td><button type="button" class="linkish" onclick="showPage('tracker')">/log/</button></td>
-            <td>daily neck routine + supps — saved in your browser</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="rules-strip">
+        <span>cite sources</span><span>·</span><span>no surgery-baiting minors</span><span>·</span><span>progress pics optional</span><span>·</span><span>facecover ok</span>
+      </div>
 
-      <hr class="rule">
+      <div class="section-label">recent threads</div>
 
       <div class="post">
         <div class="post-head">
@@ -130,12 +152,11 @@
         </div>
       </div>
 
-      <div class="btn-row">
-        <button type="button" class="btn btn-accent" onclick="showPage('forum')">enter /asc/</button>
-        <button type="button" class="btn" onclick="showPage('tracker')">open /log/</button>
-      </div>
     </div>
-    <footer><span class="wing-inline">⌁</span> ascend — not medical advice — 2026</footer>
+    <footer>
+      <img src="assets/wing.svg" alt="" class="footer-wing" width="32" height="20">
+      <span>ascend — not medical advice — 2026</span>
+    </footer>
   </div>
 
   <!-- /wiki/ -->
@@ -215,7 +236,7 @@
         </div>
       </div>
     </div>
-    <footer><span class="wing-inline">⌁</span> /wiki/</footer>
+    <footer><img src="assets/wing.svg" alt="" class="footer-wing" width="28" height="18"><span>/wiki/</span></footer>
   </div>
 
   <!-- /log/ -->
@@ -292,7 +313,7 @@
         </div>
       </div>
     </div>
-    <footer><span class="wing-inline">⌁</span> /log/</footer>
+    <footer><img src="assets/wing.svg" alt="" class="footer-wing" width="28" height="18"><span>/log/</span></footer>
   </div>
 
   <!-- /asc/ -->
@@ -386,7 +407,7 @@
 
       <div id="user-threads"></div>
     </div>
-    <footer><span class="wing-inline">⌁</span> /asc/</footer>
+    <footer><img src="assets/wing.svg" alt="" class="footer-wing" width="28" height="18"><span>/asc/</span></footer>
   </div>
 
   </main>

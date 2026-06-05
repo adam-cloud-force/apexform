@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 32" aria-hidden="true">
-  <path fill="currentColor" d="M24 2C17 10 8 12 6 20c0 5 4 9 8 10-2-5-1-9 5-11-6-2-7-7-4-11 2 4 7 6 11 3 4-6 7-11 3-4-1-9 5-11-6 2-8 7-4 10 8-10c0-8-8-10-14-18z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 72" aria-hidden="true">
+  <defs>
+    <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0ebe3"/>
+      <stop offset="50%" stop-color="#c9b896"/>
+      <stop offset="100%" stop-color="#8a7a5c"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#wg)" d="M60 4C42 18 22 24 14 42c0 12 10 22 22 26-6-14-2-26 12-32-14-6-18-16-10-26 6 10 18 14 30 8 12-16 20-32 8-14-2-26 12-32-18 6-22 18-10 26 20-26c0-16-16-22-28-38z"/>
 </svg>
